@@ -15,7 +15,7 @@ public static class Seeding
 		var messagesFaker = new Faker<Message>()
 			.RuleFor(m => m.Id, f => f.Random.Guid())
 			.RuleFor(m => m.Text, f => f.Lorem.Sentence())
-			.RuleFor(m => m.CreatedAt, f => f.Date.Past())
+			.RuleFor(m => m.CreatedAt, f => f.Date.Past().ToUniversalTime())
 			.RuleFor(m => m.Attachment, f => null);
 
 		var usersFaker = new Faker<User>()

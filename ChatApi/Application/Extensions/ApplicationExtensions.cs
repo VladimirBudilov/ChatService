@@ -7,7 +7,7 @@ public static class ApplicationExtensions
 {
 	public static void AddApplication(this IServiceCollection collection)
 	{
-		collection.AddTransient<IUsersService, UsersService>();
-		collection.AddTransient<IMessageService, MessageService>();
+		collection.AddScoped<IUsersService, UsersService>();
+		collection.AddScoped<IMessageService, MessageService>();
 	}
 }

@@ -1,22 +1,26 @@
 ﻿using Domain.Entities;
 using Domain.Services;
+using Infrastructure;
+using Microsoft.EntityFrameworkCore;
 
 namespace Application;
 
-public class UsersService : IUsersService
+public class UsersService(AppDbContext context) : IUsersService
 {
-	public Task<User> GetAsync(Guid id)
+	public async Task<User> GetAsync(Guid id)
 	{
-		throw new NotImplementedException();
+		return (await context.Users.FirstOrDefaultAsync(x => x.Id == id))!;
 	}
 
-	public Task<List<User>> GetAsync()
+	public async Task<List<User>> GetAsync()
 	{
-		throw new NotImplementedException();
+		return await context.Users.ToListAsync();
 	}
 
-	public Task<User> CreateAsync(User user)
+	public async Task<User> CreateAsync(User user)
 	{
-		throw new NotImplementedException();
+		await context.Users.AddAsync(user);
+		await context.SaveChangesAsync();
+		return user;
 	}
 }
