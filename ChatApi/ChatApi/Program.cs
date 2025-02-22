@@ -1,8 +1,11 @@
 using System.Text.Json.Serialization;
+using Application.Extensions;
 
 var builder = WebApplication.CreateSlimBuilder(args);
 
 builder.AddServiceDefaults();
+
+builder.Services.AddApplication();
 
 builder.Services.ConfigureHttpJsonOptions(options =>
 {
@@ -28,6 +31,10 @@ todosApi.MapGet("/{id}", (int id) =>
 	sampleTodos.FirstOrDefault(a => a.Id == id) is { } todo
 		? Results.Ok(todo)
 		: Results.NotFound());
+
+var userApi = app.MapGroup("/users");
+userApi.MapGet("/", () => new[] { "Alice", "Bob", "Charlie" });
+userApi.MapGet("/{id}", (Guid id) => Results.Ok($"Hello, {id}!"));
 
 app.Run();
 
