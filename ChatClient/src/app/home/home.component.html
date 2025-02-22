@@ -1,1 +1,7 @@
-<p>home works!</p>
+<form [formGroup]="form" (ngSubmit)="onSubmit()" class="login-form">
+  <mat-form-field class="full-width">
+    <input matInput formControlName="name" placeholder="Enter your name">
+  </mat-form-field>
+  <button mat-raised-button type="submit" color="primary">Login</button>
+</form>
+<router-outlet></router-outlet>

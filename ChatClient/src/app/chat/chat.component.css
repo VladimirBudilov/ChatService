@@ -1,0 +1,36 @@
+.chat-container {
+  height: 100vh;
+  display: flex;
+}
+
+.sidenav {
+  width: 200px;
+  padding: 16px;
+}
+
+.chat-messages {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  height: calc(100vh - 80px);
+  overflow-y: auto;
+}
+
+.message {
+  padding: 8px;
+  margin: 4px 0;
+  border-radius: 8px;
+  background: #e0e0e0;
+}
+
+.message.self {
+  align-self: flex-end;
+  background: #64b5f6;
+  color: white;
+}
+
+.message-input {
+  width: calc(100% - 100px);
+  margin-right: 8px;
+}
