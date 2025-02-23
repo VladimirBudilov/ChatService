@@ -7,9 +7,9 @@ namespace Application;
 
 public class UsersService(AppDbContext context) : IUsersService
 {
-	public async Task<User> GetAsync(Guid id)
+	public async Task<User?> GetAsync(string login)
 	{
-		return (await context.Users.FirstOrDefaultAsync(x => x.Id == id))!;
+		return (await context.Users.FirstOrDefaultAsync(x => x.Login == login));
 	}
 
 	public async Task<List<User>> GetAsync()
@@ -17,8 +17,10 @@ public class UsersService(AppDbContext context) : IUsersService
 		return await context.Users.ToListAsync();
 	}
 
-	public async Task<User> CreateAsync(User user)
+	public async Task<User> CreateAsync(string? login)
 	{
+		var user = await context.Users.FirstOrDefaultAsync(x => x.Login == login) ?? new User
+			{ Login = login ?? $"anonimus{Guid.NewGuid().ToString()[..5]}" };
 		await context.Users.AddAsync(user);
 		await context.SaveChangesAsync();
 		return user;

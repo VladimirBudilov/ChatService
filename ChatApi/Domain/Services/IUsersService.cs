@@ -4,7 +4,7 @@ namespace Domain.Services;
 
 public interface IUsersService
 {
-	Task<User> GetAsync(Guid id);
+	Task<User?> GetAsync(string login);
 	Task<List<User>> GetAsync();
-	Task<User> CreateAsync(User user);
+	Task<User> CreateAsync(string? login);
 }

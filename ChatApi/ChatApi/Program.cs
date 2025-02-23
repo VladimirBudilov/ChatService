@@ -22,6 +22,12 @@ await	using(var context = serviceScope.ServiceProvider.GetRequiredService<AppDbC
 
 var userApi = app.MapGroup("/users");
 userApi.MapGet("/", async (IUsersService usersService) => Results.Ok(await usersService.GetAsync()));
-// userApi.MapGet("/{id}", (Guid id) => Results.Ok(usersService.GetAsync(id)));
+userApi.MapGet("/{login}", async (IUsersService usersService, string login) => Results.Ok(await usersService.GetAsync(login)));
+userApi.MapPost("/{login}", async (IUsersService usersService, string login) =>
+{
+    var user = await usersService.CreateAsync(login);
+    var uri = $"/users/{user.Login}";
+    return Results.Created(uri, user);
+});
 
 app.Run();
