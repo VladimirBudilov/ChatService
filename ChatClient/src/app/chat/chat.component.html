@@ -1,5 +1,4 @@
 <mat-sidenav-container class="chat-container">
-          <!-- Left sidebar for users -->
           <mat-sidenav mode="side" opened class="sidenav">
             <h3>Participants</h3>
             <mat-list>
@@ -7,16 +6,13 @@
             </mat-list>
           </mat-sidenav>
 
-          <!-- Main content area -->
           <mat-sidenav-content class="main-content">
-            <!-- Messages area -->
-            <div class="chat-messages">
+                    <div class="chat-messages">
               <div *ngFor="let message of messages" [class.self]="message.userId === currentUserId" class="message">
                 {{ message.text }}
               </div>
             </div>
 
-            <!-- Input area -->
             <div class="input-area">
               <mat-form-field class="message-input">
                 <input matInput [formControl]="messageControl" placeholder="Type a message...">
