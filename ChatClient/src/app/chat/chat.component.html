@@ -9,12 +9,14 @@
     </mat-list>
   </mat-sidenav>
 
-  <mat-sidenav-content class="main-content">
-    <!--                    <div class="chat-messages">-->
-    <!--              <div *ngFor="let message of messages" [class.self]="message.userId === currentUserId" class="message">-->
-    <!--                {{ message.text }}-->
-    <!--              </div>-->
-    <!--            </div>-->
+  <mat-sidenav-content class="main-content" (scroll)="loadMoreMessages()">
+    <div class="chat-messages">
+      <div *ngFor="let message of messages()"
+           [class.self]="message.creator === currentUser()?.id"
+           class="message">
+        {{ message.text }}
+      </div>
+    </div>
 
     <div class="input-area">
       <mat-form-field class="message-input">
@@ -23,5 +25,4 @@
       <button mat-raised-button color="primary" (click)="sendMessage()">Send</button>
     </div>
   </mat-sidenav-content>
-
 </mat-sidenav-container>

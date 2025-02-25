@@ -4,7 +4,7 @@ import {MatInput} from '@angular/material/input';
 import {Router, RouterOutlet} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
 import {FormBuilder, FormGroup, ReactiveFormsModule} from '@angular/forms';
-import {bacckendUrl} from '../models/config';
+import {backendUrl} from '../models/config';
 import {catchError, tap} from 'rxjs/operators';
 import {of} from 'rxjs';
 import {UsersService} from '../services/users.service';

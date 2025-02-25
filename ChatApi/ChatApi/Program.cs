@@ -9,7 +9,11 @@ var builder = WebApplication.CreateSlimBuilder(args);
 
 builder.AddServiceDefaults();
 builder.Services.AddApplication();
-builder.Services.AddControllers().AddOData();
+builder.Services.AddControllers().AddOData(options =>
+{
+	options.Select().Filter().OrderBy().Expand().Count().SetMaxTop(100);
+});
+
 builder.Services.AddCors(options =>
 {
 	options.AddPolicy("CorsPolicy", b =>
@@ -36,20 +40,10 @@ app.MapControllers();
 
 var userApi = app.MapGroup("/users");
 userApi.MapGet("/", async (IUsersService usersService) => Results.Ok(await usersService.GetAsync()));
-
-userApi.MapGet("/{login}", async (IUsersService usersService, string login) =>
-{
-	var user = await usersService.GetAsync(login);
-	return  Results.Ok(user);
-});
-
+userApi.MapGet("/{login}",
+	async (IUsersService usersService, string login) => { return Results.Ok(await usersService.GetAsync(login)); });
 userApi.MapPost("/", async (IUsersService usersService, [FromBody] UserDto userDto) =>
 {
-	if (string.IsNullOrWhiteSpace(userDto.Login))
-	{
-		return Results.BadRequest("Login is required");
-	}
-
 	var user = await usersService.CreateAsync(userDto.Login);
 	return Results.Ok(user.Login);
 });

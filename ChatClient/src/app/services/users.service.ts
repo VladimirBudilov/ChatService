@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {bacckendUrl} from '../models/config';
+import {backendUrl} from '../models/config';
 import {catchError, map, tap} from 'rxjs/operators';
 import {Observable, of} from 'rxjs';
 import {Router} from '@angular/router';
@@ -22,7 +22,7 @@ export class UsersService {
       return of(null);
     }
     return this.http
-      .get<User>(`${bacckendUrl}/users/${login}`)
+      .get<User>(`${backendUrl}/users/${login}`)
       .pipe(
         tap((response) => response),
         catchError((error) => {
@@ -40,7 +40,7 @@ export class UsersService {
   createUser(login: string): Observable<string | null> {
     const userDto = new UserDto(login);
     return this.http
-      .post<string>(`${bacckendUrl}/users`, userDto)
+      .post<string>(`${backendUrl}/users`, userDto)
       .pipe(
         map(response => {
           return response
@@ -59,7 +59,7 @@ export class UsersService {
 
   getUser(login: string): Observable<User | null> {
     return this.http
-      .get<User>(`${bacckendUrl}/users/${login}`)
+      .get<User>(`${backendUrl}/users/${login}`)
       .pipe(
         tap((response) => response),
         catchError((error) => {
@@ -71,7 +71,7 @@ export class UsersService {
 
   getUsers(): Observable<User[] | null> {
     return this.http
-      .get<User[]>(`${bacckendUrl}/users`)
+      .get<User[]>(`${backendUrl}/users`)
       .pipe(
         tap((response) => response),
         catchError((error) => {
