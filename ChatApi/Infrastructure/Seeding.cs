@@ -28,7 +28,7 @@ public static class Seeding
 			.RuleFor(m => m.CreatedAt, f => f.Date.Past().ToUniversalTime())
 			.RuleFor(m => m.Creator, f => f.PickRandom(users).Id); 
 
-		var messages = messagesFaker.Generate(100);
+		var messages = messagesFaker.Generate(2000);
 
 		await context.Messages.AddRangeAsync(messages);
 
