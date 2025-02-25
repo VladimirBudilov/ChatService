@@ -1,23 +1,27 @@
 <mat-sidenav-container class="chat-container">
-          <mat-sidenav mode="side" opened class="sidenav">
-            <h3>Participants</h3>
-            <mat-list>
-              <mat-list-item *ngFor="let user of users">{{ user.name }}</mat-list-item>
-            </mat-list>
-          </mat-sidenav>
+  <mat-sidenav mode="side" opened class="sidenav">
+    <mat-list>
+      <div class="row">
+        <h3>Participants</h3>
+        <button mat-raised-button color="warn" (click)="logout()">Logout</button>
+      </div>
+      <mat-list-item *ngFor="let user of users()">{{ user.login }}</mat-list-item>
+    </mat-list>
+  </mat-sidenav>
 
-          <mat-sidenav-content class="main-content">
-                    <div class="chat-messages">
-              <div *ngFor="let message of messages" [class.self]="message.userId === currentUserId" class="message">
-                {{ message.text }}
-              </div>
-            </div>
+  <mat-sidenav-content class="main-content">
+    <!--                    <div class="chat-messages">-->
+    <!--              <div *ngFor="let message of messages" [class.self]="message.userId === currentUserId" class="message">-->
+    <!--                {{ message.text }}-->
+    <!--              </div>-->
+    <!--            </div>-->
 
-            <div class="input-area">
-              <mat-form-field class="message-input">
-                <input matInput [formControl]="messageControl" placeholder="Type a message...">
-              </mat-form-field>
-              <button mat-raised-button color="primary" (click)="sendMessage()">Send</button>
-            </div>
-          </mat-sidenav-content>
-        </mat-sidenav-container>
+    <div class="input-area">
+      <mat-form-field class="message-input">
+        <input matInput [formControl]="messageControl" placeholder="Type a message...">
+      </mat-form-field>
+      <button mat-raised-button color="primary" (click)="sendMessage()">Send</button>
+    </div>
+  </mat-sidenav-content>
+
+</mat-sidenav-container>

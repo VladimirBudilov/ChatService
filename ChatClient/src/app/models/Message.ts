@@ -1,5 +1,5 @@
 
 export interface Message {
-  userId: string;
+  login: string;
   text: string;
 }

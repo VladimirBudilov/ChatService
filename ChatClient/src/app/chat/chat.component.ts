@@ -1,6 +1,6 @@
-import {Component, OnInit} from '@angular/core';
-import { User } from '../models/User';
-import { Message } from '../models/Message';
+import {Component, OnInit, signal} from '@angular/core';
+import {User} from '../models/User';
+import {Message} from '../models/Message';
 import {FormControl, ReactiveFormsModule} from '@angular/forms';
 import {NgForOf} from '@angular/common';
 import {MatFormField} from '@angular/material/form-field';
@@ -8,6 +8,8 @@ import {MatSidenav, MatSidenavContainer, MatSidenavContent} from '@angular/mater
 import {MatList, MatListItem} from '@angular/material/list';
 import {MatButton} from '@angular/material/button';
 import {MatInput} from '@angular/material/input';
+import {UsersService} from '../services/users.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-chat',
@@ -28,32 +30,29 @@ import {MatInput} from '@angular/material/input';
   standalone: true,
 })
 export class ChatComponent implements OnInit {
-  users: User[] = [
-    { id: '1', name: 'Alice' },
-    { id: '2', name: 'Bob' }
-  ];
 
-  messages: Message[] = [
-    { userId: '1', text: 'Hello!' },
-    { userId: '2', text: 'Hi there!' }
-  ];
-
+  currentUser = signal<User | null>(null);
+  users = signal<User[]>([]);
   messageControl = new FormControl('');
-  currentUserId = localStorage.getItem('userId') || '1';
+
+  constructor(private usersService: UsersService, private router: Router) {}
 
   ngOnInit() {
-    if (!localStorage.getItem('userId')) {
-      localStorage.setItem('userId', this.currentUserId);
-    }
+    this.usersService.getCurrentUser().subscribe((user) => {
+      console.log('current user in chat will be', user);
+      this.currentUser.set(user);
+    });
+    this.usersService.getUsers().subscribe((users) => {
+      this.users.set(users!);
+    });
   }
 
   sendMessage() {
-    if (this.messageControl.value) {
-      this.messages.push({
-        userId: this.currentUserId,
-        text: this.messageControl.value
-      });
-      this.messageControl.setValue('');
-    }
+
+  }
+
+  logout() {
+    this.usersService.logout();
+    this.router.navigate(['/home']);
   }
 }

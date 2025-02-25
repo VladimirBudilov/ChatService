@@ -40,7 +40,7 @@ userApi.MapGet("/", async (IUsersService usersService) => Results.Ok(await users
 userApi.MapGet("/{login}", async (IUsersService usersService, string login) =>
 {
 	var user = await usersService.GetAsync(login);
-	return user != null ? Results.Ok(user) : Results.NotFound();
+	return  Results.Ok(user);
 });
 
 userApi.MapPost("/", async (IUsersService usersService, [FromBody] UserDto userDto) =>
@@ -51,7 +51,7 @@ userApi.MapPost("/", async (IUsersService usersService, [FromBody] UserDto userD
 	}
 
 	var user = await usersService.CreateAsync(userDto.Login);
-	return Results.Created($"/users/{user.Login}", user);
+	return Results.Ok(user.Login);
 });
 
 app.Run();

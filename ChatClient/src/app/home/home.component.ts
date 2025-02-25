@@ -27,13 +27,15 @@ export class HomeComponent {
 
   onSubmit() {
     this.usesService.getUser(this.form.value.login).subscribe((user) => {
-      if (user) {
-        this.usesService.setCurrentUser(user.id);
+      if (user !== null) {
+        console.log('User exists', user);
+        this.usesService.setCurrentUser(user.login);
         this.router.navigate(['/chat']);
       } else {
+        console.log('User not exists, creating... with login:', this.form.value.login);
         this.usesService.createUser(this.form.value.login)
-          .subscribe((userId) => {
-            this.usesService.setCurrentUser(userId!);
+          .subscribe((login) => {
+            this.usesService.setCurrentUser(login!);
             this.router.navigate(['/chat']);
           });
 
