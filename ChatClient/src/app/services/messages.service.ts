@@ -14,7 +14,13 @@ export class MessagesService {
   }
 
   getMessages(skip: number, top: number): Observable<Message[]> {
-    return this.http.get<Message[]>(`${this.apiUrl}?$orderby=CreatedAt desc&$skip=${skip}&$top=${top}`);
+    const params = {
+      $orderby: 'CreatedAt desc',
+      $skip: skip.toString(),
+      $top: Math.min(top, 50).toString()
+    };
+
+    return this.http.get<Message[]>(this.apiUrl, {params});
   }
 
   sendMessage(message: { text: string; userId: string }): Observable<Message> {

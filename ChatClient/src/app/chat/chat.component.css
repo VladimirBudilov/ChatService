@@ -19,6 +19,9 @@
   flex: 1;
   padding: 16px;
   overflow-y: auto;
+  display: flex;
+  flex-direction: column-reverse; /* Keep newest messages at the bottom */
+  max-height: calc(100vh - 120px);
 }
 
 .message {
@@ -50,4 +53,18 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.loading-indicator {
+  text-align: center;
+  padding: 10px;
+  color: #888;
+  font-style: italic;
+}
+
+.no-more-messages {
+  text-align: center;
+  padding: 10px;
+  color: #888;
+  font-style: italic;
 }
