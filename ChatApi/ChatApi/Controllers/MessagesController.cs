@@ -16,4 +16,12 @@ public class MessagesController(AppDbContext context) : ODataController
 	{
 		return context.Messages;
 	}
+	
+	[HttpPost]
+	public async Task<IActionResult> Post([FromBody] Message message)
+	{
+		await context.Messages.AddAsync(message);
+		await context.SaveChangesAsync();
+		return Created(message);
+	}
 }

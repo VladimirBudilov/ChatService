@@ -43,7 +43,7 @@ await using (var context = serviceScope.ServiceProvider.GetRequiredService<AppDb
 
 app.MapControllers();
 
-var userApi = app.MapGroup("/users");
+var userApi = app.MapGroup("/api/users");
 userApi.MapGet("/", async (IUsersService usersService) => Results.Ok(await usersService.GetAsync()));
 userApi.MapGet("/{login}",
 	async (IUsersService usersService, string login) => Results.Ok(await usersService.GetAsync(login)));

@@ -17,6 +17,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChatApi.AppHost", "ChatApi.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChatApi.ServiceDefaults", "ChatApi.ServiceDefaults\ChatApi.ServiceDefaults.csproj", "{A0A29ED9-5616-7A8C-80D9-7DAEE06DF282}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "RealTimeService", "RealTimeService", "{E8EF3A1A-A628-4E54-B0D9-AD57F08385C4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RealTimeService", "RealTimeService\RealTimeService.csproj", "{991788E6-1DF6-4F43-931A-C802583239C4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,6 +51,10 @@ Global
 		{A0A29ED9-5616-7A8C-80D9-7DAEE06DF282}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A0A29ED9-5616-7A8C-80D9-7DAEE06DF282}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A0A29ED9-5616-7A8C-80D9-7DAEE06DF282}.Release|Any CPU.Build.0 = Release|Any CPU
+		{991788E6-1DF6-4F43-931A-C802583239C4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{991788E6-1DF6-4F43-931A-C802583239C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{991788E6-1DF6-4F43-931A-C802583239C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{991788E6-1DF6-4F43-931A-C802583239C4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -54,6 +62,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{EB697750-5049-498C-A686-06548DB699DC} = {1ECA97FF-A4EF-4AA5-8B41-292255745D08}
 		{A0A29ED9-5616-7A8C-80D9-7DAEE06DF282} = {1ECA97FF-A4EF-4AA5-8B41-292255745D08}
+		{991788E6-1DF6-4F43-931A-C802583239C4} = {E8EF3A1A-A628-4E54-B0D9-AD57F08385C4}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {362887E1-1FFA-4D3E-A1C8-EB525227B6D9}

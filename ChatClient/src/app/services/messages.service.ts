@@ -8,7 +8,7 @@ import {Message} from '../models/Message';
   providedIn: 'root'
 })
 export class MessagesService {
-  private readonly apiUrl = `${backendUrl}/api/messages`;
+  private readonly apiUrl = `${backendUrl}/messages`;
 
   constructor(private http: HttpClient) {
   }
