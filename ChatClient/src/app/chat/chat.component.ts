@@ -14,6 +14,7 @@ import {User} from '../models/User';
 import {CdkFixedSizeVirtualScroll, CdkVirtualForOf, CdkVirtualScrollViewport} from '@angular/cdk/scrolling';
 import {InfiniteScrollDirective} from 'ngx-infinite-scroll';
 import {CreateMessageRequest} from '../models/CreateMessageRequest';
+import {SignalrService} from '../services/signalr.service';
 
 @Component({
   selector: 'app-chat',
@@ -39,6 +40,7 @@ import {CreateMessageRequest} from '../models/CreateMessageRequest';
 export class ChatComponent implements OnInit {
   private usersService = inject(UsersService);
   private messagesService = inject(MessagesService);
+  private signalRService = inject(SignalrService);
   private router = inject(Router);
 
   currentUser = signal<User | null>(null);
@@ -55,6 +57,11 @@ export class ChatComponent implements OnInit {
     this.usersService.getCurrentUser().subscribe(user => this.currentUser.set(user));
     this.usersService.getUsers().subscribe(users => this.users.set(users!));
     this.loadMessages();
+
+    this.signalRService.startConnection();
+    this.signalRService.addMessageListener('ReceiveMessage', (message: Message) => {
+      console.log('Received message:', message);
+    });
   }
 
   sendMessage() {
