@@ -10,12 +10,23 @@
   </mat-sidenav>
 
   <mat-sidenav-content class="main-content">
-    <cdk-virtual-scroll-viewport itemSize="50" class="chat-messages" (scrolledIndexChange)="loadMoreMessages()">
-      <div *cdkVirtualFor="let message of messages()" [class.self]="message.userId === currentUser()?.id" class="message">
+    <div class="chat-messages infinite-scroll-container"
+         infiniteScroll
+         [infiniteScrollThrottle]="150"
+         [infiniteScrollUpDistance]="1"
+         [scrollWindow]="false"
+         (scrolledUp)="loadMessages()">
+
+      <div *ngFor="let message of messages()"
+           [class.self]="message.userId === currentUser()?.id"
+           class="message">
         <div class="timestamp">{{ message.createdAt | date:'short' }}</div>
         <div>{{ message.text }}</div>
       </div>
-    </cdk-virtual-scroll-viewport>
+
+      <div *ngIf="loading" class="loading-indicator">Loading messages...</div>
+      <div *ngIf="!hasMoreMessages" class="no-more-messages">No more messages</div>
+    </div>
 
     <div class="input-area">
       <mat-form-field class="message-input">

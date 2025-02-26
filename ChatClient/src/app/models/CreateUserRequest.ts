@@ -1,4 +1,4 @@
-export class UserDto {
+export class CreateUserRequest {
   Login: string;
 
   constructor(login: string) {

@@ -2,7 +2,7 @@
 
 namespace ChatApi.DTO.Validations;
 
-public class UserDtoValidator : AbstractValidator<UserDto>
+public class UserDtoValidator : AbstractValidator<CreateUserRequest>
 {
 	public UserDtoValidator()
 	{

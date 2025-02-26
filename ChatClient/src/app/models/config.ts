@@ -1,1 +1,2 @@
-export const backendUrl: string = 'http://localhost:5000/api';
+export const backendApiUrl: string = 'http://localhost:5000/api';
+export const backendOdataUrl: string = 'http://localhost:5000/odata';

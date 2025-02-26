@@ -1,11 +1,11 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {backendUrl} from '../models/config';
+import {backendApiUrl} from '../models/config';
 import {catchError, map, tap} from 'rxjs/operators';
 import {Observable, of} from 'rxjs';
 import {Router} from '@angular/router';
 import {User} from '../models/User';
-import {UserDto} from '../models/UserDto';
+import {CreateUserRequest} from '../models/CreateUserRequest';
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +22,7 @@ export class UsersService {
       return of(null);
     }
     return this.http
-      .get<User>(`${backendUrl}/users/${login}`)
+      .get<User>(`${backendApiUrl}/users/${login}`)
       .pipe(
         tap((response) => response),
         catchError((error) => {
@@ -38,9 +38,9 @@ export class UsersService {
   }
 
   createUser(login: string): Observable<string | null> {
-    const userDto = new UserDto(login);
+    const userDto = new CreateUserRequest(login);
     return this.http
-      .post<string>(`${backendUrl}/users`, userDto)
+      .post<string>(`${backendApiUrl}/users`, userDto)
       .pipe(
         map(response => {
           return response
@@ -59,7 +59,7 @@ export class UsersService {
 
   getUser(login: string): Observable<User | null> {
     return this.http
-      .get<User>(`${backendUrl}/users/${login}`)
+      .get<User>(`${backendApiUrl}/users/${login}`)
       .pipe(
         tap((response) => response),
         catchError((error) => {
@@ -71,7 +71,7 @@ export class UsersService {
 
   getUsers(): Observable<User[] | null> {
     return this.http
-      .get<User[]>(`${backendUrl}/users`)
+      .get<User[]>(`${backendApiUrl}/users`)
       .pipe(
         tap((response) => response),
         catchError((error) => {
