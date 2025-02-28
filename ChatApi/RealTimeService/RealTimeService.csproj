@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
     <PropertyGroup>
         <TargetFramework>net9.0</TargetFramework>
@@ -7,11 +7,14 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.2"/>
+        <PackageReference Include="MassTransit" Version="8.3.7-develop.2225" />
+        <PackageReference Include="MassTransit.RabbitMQ" Version="8.3.7-develop.2225" />
+        <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.2" />
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Controllers\" />
+      <ProjectReference Include="..\ChatApi.ServiceDefaults\ChatApi.ServiceDefaults.csproj" />
+      <ProjectReference Include="..\Contracts\Contracts.csproj" />
     </ItemGroup>
 
 </Project>

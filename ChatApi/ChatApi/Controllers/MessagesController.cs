@@ -1,5 +1,6 @@
 ﻿using ChatApi.DTO;
 using Domain.Entities;
+using Domain.Services;
 using Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Query;
@@ -7,7 +8,7 @@ using Microsoft.AspNetCore.OData.Routing.Controllers;
 
 namespace ChatApi.Controllers;
 
-public class MessagesController(AppDbContext context) : ODataController
+public class MessagesController(AppDbContext context, IMessageService service) : ODataController
 {
 	[HttpGet]
 	[EnableQuery]
@@ -17,18 +18,16 @@ public class MessagesController(AppDbContext context) : ODataController
 	}
 
 	[HttpPost]
-	public async Task<IActionResult> Post([FromBody] CreateMessageRequest message)
+	public async Task<IActionResult> Post([FromBody] CreateMessageRequest request)
 	{
-		var newMessage = new Message
+		var message = new Message
 		{
-			Text = message.Text,
-			UserId = message.UserId,
+			Text = request.Text,
+			UserId = request.UserId,
 			CreatedAt = DateTime.UtcNow
 		};
-
-		await context.Messages.AddAsync(newMessage);
-		await context.SaveChangesAsync();
-
-		return Created(newMessage);
+		
+		await service.CreateAsync(message);
+		return NoContent();
 	}
 }

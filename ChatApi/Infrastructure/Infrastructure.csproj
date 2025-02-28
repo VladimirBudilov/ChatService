@@ -9,6 +9,9 @@
     <ItemGroup>
       <PackageReference Include="Aspire.Npgsql" Version="9.0.0" />
       <PackageReference Include="Bogus" Version="35.6.2" />
+      <PackageReference Include="MassTransit" Version="8.3.7-develop.2225" />
+      <PackageReference Include="MassTransit.AspNetCore" Version="7.3.1" />
+      <PackageReference Include="MassTransit.RabbitMQ" Version="8.3.7-develop.2225" />
       <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.2" />
       <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.2" />
       <PackageReference Include="Npgsql" Version="9.0.2" />

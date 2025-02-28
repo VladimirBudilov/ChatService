@@ -1,17 +1,31 @@
-﻿using Domain.Entities;
+﻿using Contracts.Contracts;
+using Domain.Entities;
 using Domain.Services;
+using Infrastructure;
+using MassTransit;
 
 namespace Application;
 
-public class MessageService : IMessageService
+public class MessageService(IPublishEndpoint endpoint, AppDbContext context) : IMessageService
 {
-	public Task<List<Message>> GetAsync()
+	public async Task CreateAsync(Message message)
 	{
-		throw new NotImplementedException();
-	}
+		var transaction = await context.Database.BeginTransactionAsync();
 
-	public Task<Message> CreateAsync(Message message)
-	{
-		throw new NotImplementedException();
+		try
+		{
+			await context.Messages.AddAsync(message);
+			await context.SaveChangesAsync();
+			await endpoint.Publish<MessageCreated>(
+				new MessageCreated(message.Text!, message.UserId,
+				message.CreatedAt));
+
+			await transaction.CommitAsync();
+		}
+		catch (Exception e)
+		{
+			await transaction.RollbackAsync();
+			throw;
+		}
 	}
 }

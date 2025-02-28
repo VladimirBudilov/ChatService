@@ -7,7 +7,7 @@ import {backendHubUrl} from '../models/config';
 })
 export class SignalrService {
   private hubConnection: signalR.HubConnection = new signalR.HubConnectionBuilder()
-    .withUrl(`${backendHubUrl}/hub`)
+    .withUrl(`${backendHubUrl}`)
     .configureLogging(signalR.LogLevel.Information)
     .build();
 

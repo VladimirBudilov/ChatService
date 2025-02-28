@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using MassTransit;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -16,6 +17,16 @@ public static class InfrastructureExtensions
 
 				await Seeding.SeedAsync(context as AppDbContext ??
 				                        throw new InvalidOperationException("Invalid context type")));
+		});
+		
+		services.AddMassTransit(x =>
+		{
+			x.SetKebabCaseEndpointNameFormatter();
+			x.UsingRabbitMq((context, cfg) =>
+			{
+				cfg.Host( configuration.GetConnectionString("messaging"));
+				cfg.ConfigureEndpoints(context);
+			});
 		});
 	}
 }

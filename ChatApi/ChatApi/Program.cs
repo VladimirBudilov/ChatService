@@ -17,7 +17,6 @@ builder.Services.AddApplication();
 
 var modelBuilder = new ODataConventionModelBuilder();
 modelBuilder.EntitySet<Message>("Messages");
-
 builder.Services.AddValidatorsFromAssemblyContaining<UserDtoValidator>();
 builder.Services.AddControllers().AddOData(options =>
 {
@@ -39,6 +38,8 @@ builder.Services.AddCors(options =>
 			.AllowAnyOrigin();
 	});
 });
+
+
 builder.Services.AddInfrastructure(builder.Configuration);
 
 var app = builder.Build();
